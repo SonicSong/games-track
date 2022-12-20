@@ -13,8 +13,9 @@ $result = $db->query($sql);
 $row = $result->fetch_assoc();
 
 if ($row){
-    session_start();
-    $_SESSION["loggedin"] = true;
+    $cookie_name = $login;
+    $cookie_value = $login;
+    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
     header("location: admin_panel.php");
 } else {
     echo 'Nazwa użytkownika bądź hasło są nie poprawne';
