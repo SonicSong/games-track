@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 20 Gru 2022, 00:05
--- Wersja serwera: 10.4.27-MariaDB
--- Wersja PHP: 8.1.12
+-- Host: localhost
+-- Generation Time: Dec 20, 2022 at 05:34 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,25 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `games_track`
+-- Database: `games_track`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `games`
+-- Table structure for table `games`
 --
 
 CREATE TABLE `games` (
   `id` int(11) NOT NULL,
-  `name` text DEFAULT NULL,
-  `publisher` text NOT NULL,
-  `release_date` date NOT NULL,
-  `genre` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `name` text NOT NULL,
+  `publisher` text DEFAULT NULL,
+  `release_date` date DEFAULT NULL,
+  `genre` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `games`
+-- Dumping data for table `games`
 --
 
 INSERT INTO `games` (`id`, `name`, `publisher`, `release_date`, `genre`) VALUES
@@ -51,25 +51,62 @@ INSERT INTO `games` (`id`, `name`, `publisher`, `release_date`, `genre`) VALUES
 (10, 'World of Warcraft', 'Blizzard Entertainment', '2004-11-23', 'Massively multiplayer online role-playing'),
 (11, 'Command & Conquer: Remastered Collection', 'Electronic Arts', '2020-06-05', 'Real-time strategy');
 
+-- --------------------------------------------------------
+
 --
--- Indeksy dla zrzutów tabel
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(150) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `is_admin` bit(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `creation_date`, `is_admin`) VALUES
+(1, 'admin', 'c380f833034d60bf035a134094eb538d600dc6f9', 'example@example.org', '2022-12-20 08:20:16', b'1'),
+(2, 'SonicSong', '1fce47db018ccbc4c34df8acf925c5b92bc804e1', 'example1@example.org', '2022-12-20 08:52:16', b'0'),
+(3, 'cvuj', '3004a9bd2c08c43cc92ffb1c73cf1f29560f9f78', 'example2@example.org', '2022-12-20 09:38:38', b'0'),
+(6, '', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', '', '2022-12-20 09:43:56', b'0');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indeksy dla tabeli `games`
+-- Indexes for table `games`
 --
 ALTER TABLE `games`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT dla zrzuconych tabel
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT dla tabeli `games`
+-- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
