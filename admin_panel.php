@@ -14,18 +14,23 @@ if (!$db) {
     <title>Panel administratora</title>
 </head>
 <body>
+<div>
     <?php
+    $cookie_name = $_COOKIE['user'];
 
-    $sql = "SELECT * FROM users WHERE is_admin = 1";
+    $sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$cookie_name'";
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
 
+    echo "<div>";
     if ($row) {
-        echo "CVUJ";
+        echo "<div><p>Witaj, $cookie_name</p></div>";
     } else {
         echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.<br>
                 Powrót do poprzedniej <a href='index.php'>strony</a>.</p>";
     }
+    echo "</div>";
     ?>
+</div>
 </body>
 </html>
