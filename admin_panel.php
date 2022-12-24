@@ -1,3 +1,9 @@
+<?php
+$db = mysqli_connect("localhost", "root", "", "games_track");
+if (!$db) {
+    die('Nie można było się połączyć z bazą danych: ' . mysqli_error());
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,16 +15,17 @@
 </head>
 <body>
     <?php
-    $db = mysqli_connect("localhost", "root", "", "games_track");
-    if (!$db){
-        die('Nie można było się połączyć z bazą danych: '.mysqli_error());
-    }
 
     $sql = "SELECT * FROM users WHERE is_admin = 1";
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
-    var_dump($row);
 
+    if ($row) {
+        echo "CVUJ";
+    } else {
+        echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.<br>
+                Powrót do poprzedniej <a href='index.php'>strony</a>.</p>";
+    }
     ?>
 </body>
 </html>

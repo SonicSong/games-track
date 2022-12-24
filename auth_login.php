@@ -7,16 +7,15 @@ if (!$db){
 $login = $_REQUEST['login'] ?? '';
 $userpwd = sha1($_REQUEST['userpwd'] ?? '');
 
-$sql = "SELECT * FROM users WHERE username = '$login' AND password = '$userpwd'";
-$result = $db->query($sql);
+$sql1 = "SELECT * FROM users WHERE username = '$login' AND password = '$userpwd'";
+$result1 = $db->query($sql1);
 
-$row = $result->fetch_assoc();
+$row1 = $result1->fetch_assoc();
 
-if ($row){
-    $cookie_name = $login;
-    $cookie_value = $login;
-    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-    header("location: admin_panel.php");
+if ($row1){
+    $cookie_value = "$login";
+    setcookie("user", $cookie_value, time() + (86400 * 30), "/");
+    header("location: index.php");
 } else {
     echo 'Nazwa użytkownika bądź hasło są nie poprawne';
     echo '<br><a href="login_page.php">Powrót do logowania</a>';
