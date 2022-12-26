@@ -11,7 +11,7 @@ if(!isset($_COOKIE['user'])) {
     $username = $_COOKIE['user'];
 }
 
-$sql = "SELECT * FROM users WHERE is_admin = 1";
+$sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$username'";
 $result = $db->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -56,7 +56,7 @@ echo 'Data dodania: '.$game_detail['date_added'];
 echo '</div>';
 echo '<div>';
 if(isset($_COOKIE['user'])){
-    echo "";
+
 }
 echo '</div>';
 

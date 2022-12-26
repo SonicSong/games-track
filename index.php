@@ -10,9 +10,6 @@ if(!isset($_COOKIE['user'])) {
     $username = $_COOKIE['user'];
 }
 
-$sql = "SELECT * FROM users WHERE is_admin = 1";
-$result = $db->query($sql);
-$row = $result->fetch_assoc();
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,6 +24,10 @@ $row = $result->fetch_assoc();
 <body>
 <div class="main">
     <?php
+    $sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$username'";
+    $result = $db->query($sql);
+    $row = $result->fetch_assoc();
+
     echo "<div class='topnav'>";
     echo "<p>Witaj, $username</p>";
     if(!isset($_COOKIE['user'])){
@@ -44,7 +45,7 @@ $row = $result->fetch_assoc();
 
     if($games_list->num_rows > 0) {
         while($games_data = $games_list->fetch_assoc()){
-            echo '<div class="game-data"><a href="game_details.php?id='.$games_data['id'].'" target="_blank">';
+            echo '<div class="game-data"><a href="game_details.php?id='.$games_data['id'].'">';
             echo 'Tytuł: '.$games_data['title'].'<br>';
             echo 'Data Premiery: '.$games_data['release_date'].'<br>';
             echo 'Gatunek: '.$games_data['genre'].'<br>';
