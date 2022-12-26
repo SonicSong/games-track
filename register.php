@@ -30,4 +30,5 @@ try {
         echo "Rejestracja nie udana. <a href='registration_page.php'>Proszę spróbować jeszcze raz.</a>";
     }
 }
-?>
+
+$db->close();

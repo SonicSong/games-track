@@ -45,11 +45,11 @@ $row = $result->fetch_assoc();
     if($games_list->num_rows > 0) {
         while($games_data = $games_list->fetch_assoc()){
             echo '<div class="game-data"><a href="game_details.php?id='.$games_data['id'].'" target="_blank">';
-            echo $games_data['name'].'<br>';
-            echo $games_data['release_date'].'<br>';
-            echo $games_data['genre'].'<br>';
-            echo $games_data['publisher'].'<br>';
-            echo $games_data['platform'].'<br>';
+            echo 'Tytuł: '.$games_data['title'].'<br>';
+            echo 'Data Premiery: '.$games_data['release_date'].'<br>';
+            echo 'Gatunek: '.$games_data['genre'].'<br>';
+            echo 'Wydawca: '.$games_data['publisher'].'<br>';
+            echo 'Platforma: '.$games_data['platform'].'<br>';
             echo "</a>";
             echo "Dodano ".$games_data['date_added']."</div>";
         }
@@ -57,7 +57,9 @@ $row = $result->fetch_assoc();
         echo "<p>0 wyników</p>";
     }
     echo "</div>";
-?>
+
+    $db->close();
+    ?>
 </div>
 </body>
 </html>

@@ -24,9 +24,13 @@ if (!$db) {
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
 
-    echo "<div>";
+    echo "<div class='topnav'>";
+    ?>
+    <a href="<?php echo htmlspecialchars($_SERVER['HTTP_REFERER']);?>">Powrót</a>
+    <?php
     if ($row) {
         echo "<div><p>Witaj, $cookie_name</p></div>";
+        echo "<a href='logout.php'>Wyloguj</a>";
     } else {
         echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.</p>";
         ?>
@@ -38,6 +42,9 @@ if (!$db) {
         <?php
     }
     echo "</div>";
+    add_game();
+
+    $db->close();
     ?>
 </div>
 </body>
