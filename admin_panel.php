@@ -1,4 +1,6 @@
 <?php
+include 'admin_functions.php';
+
 $db = mysqli_connect("localhost", "root", "", "games_track");
 if (!$db) {
     die('Nie można było się połączyć z bazą danych: ' . mysqli_error());
@@ -26,8 +28,14 @@ if (!$db) {
     if ($row) {
         echo "<div><p>Witaj, $cookie_name</p></div>";
     } else {
-        echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.<br>
-                Powrót do poprzedniej <a href='index.php'>strony</a>.</p>";
+        echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.</p>";
+        ?>
+        <script>
+        setTimeout(function() {
+            window.location.href = "index.php";
+        }, 5000);
+        </script>
+        <?php
     }
     echo "</div>";
     ?>

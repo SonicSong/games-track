@@ -21,21 +21,40 @@ $row = $result->fetch_assoc();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
     <title>Games Tracker</title>
 </head>
 <body>
-<div>
+<div class="main">
     <?php
-    echo "<div>";
+    echo "<div class='topnav'>";
+    echo "<p>Witaj, $username</p>";
     if(!isset($_COOKIE['user'])){
-        echo "<div><p>Witaj, $username</p></div>";
-        echo "<div><a href='login_page.php'>Logowanie</a></div>";
+        echo "<a href='login_page.php'>Logowanie</a>";
     } else {
-        echo "<div><p>Witaj, $username</p></div>";
         if ($row) {
-            echo "<div><a href='admin_panel.php'>Panel Administratora</a></div>";
+            echo "<a href='admin_panel.php'>Panel Administratora</a>";
         }
-        echo "<div><a href='logout.php'>Wyloguj</a></div>";
+        echo "<a href='logout.php'>Wyloguj</a>";
+    }
+    echo "</div>";
+    echo "<div class='game-disp'>";
+    $games_query = "SELECT * FROM games";
+    $games_list = $db->query($games_query);
+
+    if($games_list->num_rows > 0) {
+        while($games_data = $games_list->fetch_assoc()){
+            echo '<div class="game-data"><a href="game_details.php?id='.$games_data['id'].'" target="_blank">';
+            echo $games_data['name'].'<br>';
+            echo $games_data['release_date'].'<br>';
+            echo $games_data['genre'].'<br>';
+            echo $games_data['publisher'].'<br>';
+            echo $games_data['platform'].'<br>';
+            echo "</a>";
+            echo "Dodano ".$games_data['date_added']."</div>";
+        }
+    } else {
+        echo "<p>0 wyników</p>";
     }
     echo "</div>";
 ?>
