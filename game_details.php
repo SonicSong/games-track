@@ -6,7 +6,7 @@ if (!$db) {
 $game_id = intval($_GET['id']);
 
 if(!isset($_COOKIE['user'])) {
-    $username = "użytkowniku";
+    $username = "guest";
 } else {
     $username = $_COOKIE['user'];
 }

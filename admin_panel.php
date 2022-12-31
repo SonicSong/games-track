@@ -19,7 +19,11 @@ if (!$db) {
 <body>
 <div class="main">
     <?php
-    $cookie_name = $_COOKIE['user'];
+    if(!isset($_COOKIE['user'])) {
+        $cookie_name = "guest";
+    } else {
+        $cookie_name = $_COOKIE['user'];
+    }
 
     $sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$cookie_name'";
     $result = $db->query($sql);
@@ -32,37 +36,43 @@ if (!$db) {
     if ($row) {
         echo "<div><p>Witaj, $cookie_name</p></div>";
         echo "<a href='logout.php'>Wyloguj</a>";
+        echo "</div>";
+        draw_add_game($genres, $platforms);
     } else {
         echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.</p>";
         ?>
         <script>
-        setTimeout(function() {
-            window.location.href = "index.php";
-        }, 5000);
+            setTimeout(function() {
+                window.location.href = "index.php";
+            }, 5000);
         </script>
         <?php
     }
     echo "</div>";
-    ?>
-    <div class="function-title"><p>Dodaj nową grę</p></div>
-    <form action="admin_functions.php">
-        Tytuł: <input type="text" name="title" required><br>
-        Data premiery: <input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
-        Gatunek: <select name="genre" required>
-            <!-- $genres actually does work but IDE doesn't recognize that it's in another file -->
-            <?php foreach ($genres as $genre) { ?>
-            <option value="<?php echo $genre; ?>"><?php echo $genre; ?></option>
-            <?php } ?>
-        </select><br>
-        Wydawca: <input type="text" name="publisher"><br>
-        Platforma: <select name="platform">
-            <?php foreach ($platforms as $platform) { ?>
-                <option value="<?php echo $platform; ?>"><?php echo $platform; ?></option>
-            <?php } ?>
-        </select><br>
-        <input type="submit">
-    </form>
-    <?php
+
+    function draw_add_game($genres, $platforms){
+        ?>
+        <div class="function-title"><p>Dodaj nową grę</p></div>
+        <form action="admin_functions.php" method="POST">
+            Tytuł: <input type="text" name="title" required><br>
+            Data premiery: <input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
+            Gatunek: <select name="genre" required>
+                <!-- $genres actually does work but IDE doesn't recognize that it's in another file -->
+                <?php foreach ($genres as $genre) { ?>
+                    <option value="<?php echo $genre; ?>"><?php echo $genre; ?></option>
+                <?php } ?>
+            </select><br>
+            Wydawca: <input type="text" name="publisher"><br>
+            Platforma: <select name="platform">
+                <?php foreach ($platforms as $platform) { ?>
+                    <option value="<?php echo $platform; ?>"><?php echo $platform; ?></option>
+                <?php } ?>
+            </select><br>
+            <input type="submit">
+        </form>
+        </div>
+        <?php
+    }
 
     $db->close();
     ?>

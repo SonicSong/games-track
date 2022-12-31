@@ -20,26 +20,31 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     add_game($db, $title, $release_date, $genre, $publisher, $platform);
 }
-function add_game($db, $title, $release_date, $genre, $publisher, $platform){
-$sql_add_game = "INSERT INTO `games` (`id`, `title`, `publisher`, `release_date`, `genre`, `platform`, `date_added`) VALUES (NULL, '$title', '$publisher', '$release_date', '$genre', '$platform', current_timestamp())";    try{
-        $result = mysqli_query($db, $sql_add_game);
 
-        if ($result) {
-            echo "Dodawanie gry wykonane pomyślnie...";
-            ?>
-            <script>
-                setTimeout(function() {
-                    <?php echo htmlspecialchars($_SERVER['HTTP_REFERER']);?>
-                }, 5000);
-            </script>
-            <?php
-        }
+function add_game($db, $title, $release_date, $genre, $publisher, $platform){
+    $sql_add_game = "INSERT INTO `games` (`id`, `title`, `publisher`, `release_date`, `genre`, `platform`, `date_added`) 
+VALUES (NULL, '$title', '$publisher', '$release_date', '$genre', '$platform', current_timestamp())";
+
+    try{
+    $result = mysqli_query($db, $sql_add_game);
+
+    if ($result) {
+        echo "Dodawanie gry wykonane pomyślnie...";
+        ?>
+        <script>
+            setTimeout(function() {
+                window.location = <?php echo htmlspecialchars($_SERVER['HTTP_REFERER']);?>
+            }, 5000);
+        </script>
+        <?php
+        return $result;
+    }
     } catch (mysqli_sql_exception $error) {
         if ($error->getCode() == 1062) {
             echo "Dodawanie gry nie udane. Wprowadzone dane są już w bazie danych.";
         } else {
             echo "Dodawanie gry nie udane. <a href='admin_panel.php'>Proszę spróbować jeszcze raz.</a>";
-            echo $error;
+            return $error;
         }
     }
 }
