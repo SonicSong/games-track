@@ -18,8 +18,9 @@ $sql_userdb = "CREATE TABLE $username_db (
    score INT NOT NULL CHECK (score >= 0 AND score <= 10),
    review VARCHAR(500),
    FOREIGN KEY (user_id) REFERENCES users(id),
-   FOREIGN KEY (game_id) REFERENCES games(id)
-);";
+   FOREIGN KEY (game_id) REFERENCES games(id),
+   UNIQUE (game_id)
+)";
 
 try {
     $sql = "INSERT INTO users (username, password, email, creation_date, is_admin) VALUES ('$username', '$pwd', '$mail', '$create_datetime', 0)";

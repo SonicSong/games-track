@@ -29,6 +29,7 @@ if(!isset($_COOKIE['user'])) {
     $row = $result->fetch_assoc();
 
     echo "<div class='topnav'>";
+    echo "<a href='index.php'>Games Track</a>";
     echo "<p>Witaj, $username</p>";
     if(!isset($_COOKIE['user'])){
         echo "<a href='login_page.php'>Logowanie</a>";
@@ -36,6 +37,7 @@ if(!isset($_COOKIE['user'])) {
         if ($row) {
             echo "<a href='admin_panel.php'>Panel Administratora</a>";
         }
+        echo "<a href='user_panel.php'>$username</a>";
         echo "<a href='logout.php'>Wyloguj</a>";
     }
     echo "</div>";

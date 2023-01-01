@@ -30,6 +30,7 @@ if (!$db) {
     $row = $result->fetch_assoc();
 
     echo "<div class='topnav'>";
+    echo "<a href='index.php'>Games Track</a>";
     ?>
     <a href="<?php echo htmlspecialchars($_SERVER['HTTP_REFERER']);?>">Powrót</a>
     <?php
