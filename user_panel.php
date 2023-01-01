@@ -28,7 +28,7 @@ $result = $db->query($sql);
 $row = $result->fetch_assoc();
 
 $db_name = $username.'_db';
-$sql_games = "SELECT * FROM $db_name";
+$sql_games = "SELECT ug.game_id, g.title, ug.progress, ug.score, ug.review FROM $db_name ug JOIN games g ON ug.game_id = g.id";
 $user_games = $db->query($sql_games);
 
 echo "<div class='topnav'>";
@@ -52,11 +52,15 @@ if(!isset($_COOKIE['user'])){
 }
 
 function user_games($ug){
-
     if($ug->num_rows > 0) {
         while ($user_game_list = $ug->fetch_assoc()) {
-            echo "<div><a href='game_details.php?id='".$user_game_list['game_id']."'></a>";
+            echo "<div class='game-data'><a href='game_details.php?id=".$user_game_list['game_id']."'>".$user_game_list['title']."</a>";
+            echo "<p>Status: ".$user_game_list['progress']."</p>";
+            echo "<p>Wynik: ".$user_game_list['score']."</p>";
+            echo "<p>Recenzja: ".$user_game_list['review']."</p></div>";
         }
+    } else {
+        echo "<p>Nie masz jeszcze dodanych żadnych gier.</p>";
     }
 }
 

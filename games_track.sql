@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 26 Gru 2022, 22:05
+-- Czas generowania: 01 Sty 2023, 17:58
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.1.12
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `games_track`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `admin_db`
+--
+
+CREATE TABLE `admin_db` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `game_id` int(11) DEFAULT NULL,
+  `progress` enum('Plan to play','Playing','Completed','Replaying','Paused','Dropped') DEFAULT NULL,
+  `review` varchar(500) DEFAULT NULL,
+  `score` int(11) NOT NULL CHECK (`score` >= 0 and `score` <= 10)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Zrzut danych tabeli `admin_db`
+--
+
+INSERT INTO `admin_db` (`id`, `user_id`, `game_id`, `progress`, `review`, `score`) VALUES
+(1, 18, 1, 'Completed', 'Great game about peace.', 0);
 
 -- --------------------------------------------------------
 
@@ -56,7 +78,31 @@ INSERT INTO `games` (`id`, `title`, `publisher`, `release_date`, `genre`, `platf
 (12, 'Death Stranding', 'Sony Interactive Entertainment', '2019-11-08', 'Action', 'Play Station 4', '2022-12-26'),
 (13, 'Project Wingman', 'Humble Games', '2020-12-01', 'Air combat simulation', 'PC', '2022-12-26'),
 (14, 'Stardew Valley', 'ConcernedApe', '2016-02-26', 'Simulation', 'PC', '2022-12-26'),
-(17, 'Fallout: New Vegas', 'Bethesda Softworks', '2010-10-19', 'Action role-playing', 'PC/Xbox 360/Play Station 3', '2022-12-26');
+(15, 'Fallout: New Vegas', 'Bethesda Softworks', '2010-10-19', 'Action role-playing', 'PC/Xbox 360/Play Station 3', '2022-12-26'),
+(16, 'Fallout 3', 'Bethesda Softworks', '2008-12-31', 'Action role-playing', 'PC/Xbox 360/Play Station 3', '2022-12-30');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `robert_db`
+--
+
+CREATE TABLE `robert_db` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `game_id` int(11) DEFAULT NULL,
+  `progress` enum('Plan to play','Playing','Completed','Replaying','Paused','Dropped') DEFAULT NULL,
+  `score` int(11) NOT NULL CHECK (`score` >= 0 and `score` <= 10),
+  `review` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Zrzut danych tabeli `robert_db`
+--
+
+INSERT INTO `robert_db` (`id`, `user_id`, `game_id`, `progress`, `score`, `review`) VALUES
+(1, 21, 1, 'Completed', 10, 'Great'),
+(7, 21, 2, 'Playing', 8, 'A confusing and beautiful game.');
 
 -- --------------------------------------------------------
 
@@ -78,20 +124,35 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `creation_date`, `is_admin`) VALUES
-(2, 'SonicSong', '1fce47db018ccbc4c34df8acf925c5b92bc804e1', 'example1@example.org', '2022-12-20 08:52:16', b'0'),
-(3, 'cvuj', '2a1dc769d77ec17186d03c701408d3d7d65347d3', 'example2@example.org', '2022-12-20 09:38:38', b'0'),
-(16, 'Robert', '3da541559918a808c2402bba5012f6c60b27661c', 'asdf@asdf.aa', '2022-12-23 23:02:04', b'0'),
-(18, 'admin', 'c380f833034d60bf035a134094eb538d600dc6f9', 'example@example.org', '2022-12-23 23:10:47', b'1');
+(18, 'admin', 'c380f833034d60bf035a134094eb538d600dc6f9', 'example@example.org', '2022-12-23 23:10:47', b'1'),
+(21, 'Robert', '1fce47db018ccbc4c34df8acf925c5b92bc804e1', 'asd@asd.pl', '2022-12-30 15:57:12', b'0');
 
 --
 -- Indeksy dla zrzutów tabel
 --
 
 --
+-- Indeksy dla tabeli `admin_db`
+--
+ALTER TABLE `admin_db`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `game_id` (`game_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeksy dla tabeli `games`
 --
 ALTER TABLE `games`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`) USING HASH;
+
+--
+-- Indeksy dla tabeli `robert_db`
+--
+ALTER TABLE `robert_db`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `game_id` (`game_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indeksy dla tabeli `users`
@@ -106,16 +167,46 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT dla tabeli `admin_db`
+--
+ALTER TABLE `admin_db`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT dla tabeli `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT dla tabeli `robert_db`
+--
+ALTER TABLE `robert_db`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- Ograniczenia dla zrzutów tabel
+--
+
+--
+-- Ograniczenia dla tabeli `admin_db`
+--
+ALTER TABLE `admin_db`
+  ADD CONSTRAINT `admin_db_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `admin_db_ibfk_2` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`);
+
+--
+-- Ograniczenia dla tabeli `robert_db`
+--
+ALTER TABLE `robert_db`
+  ADD CONSTRAINT `robert_db_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `robert_db_ibfk_2` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
