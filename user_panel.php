@@ -1,4 +1,5 @@
 <?php
+
 $db = mysqli_connect("localhost", "root", "", "games_track");
 if (!$db) {
     die('Nie można było się połączyć z bazą danych: ' . mysqli_error());
@@ -27,8 +28,11 @@ $sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$username'";
 $result = $db->query($sql);
 $row = $result->fetch_assoc();
 
-$db_name = $username.'_db';
-$sql_games = "SELECT ug.game_id, g.title, ug.progress, ug.score, ug.review FROM $db_name ug JOIN games g ON ug.game_id = g.id";
+$sql_user = "SELECT * FROM users WHERE username = '$username'";
+$res_user = $db->query($sql_user);
+$user_dat = $res_user->fetch_assoc();
+
+$sql_games = "SELECT ug.game_id, g.title, ug.progress, ug.score, ug.review FROM user_games ug JOIN games g ON ug.game_id = g.id WHERE ug.user_id = '{$user_dat['id']}'";
 $user_games = $db->query($sql_games);
 
 echo "<div class='topnav'>";

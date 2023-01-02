@@ -72,7 +72,7 @@ function insert_game($id_game){
     <br>
     <form method="POST" action="game_details_insert.php">
         <label for="progress">Progress:</label>
-        <select name="progress" id="progress">
+        <select name="progress" id="progress" required>
             <option value="Plan to play">Plan to play</option>
             <option value="Playing">Playing</option>
             <option value="Completed">Completed</option>
@@ -82,7 +82,7 @@ function insert_game($id_game){
         </select>
         <br>
         <label for="score">Score:</label>
-        <input type="number" name="score" id="score" min="0" max="10" required>
+        <input type="number" name="score" id="score" min="0" max="10">
         <br>
         <input type="hidden" name="game-id" value="<?php echo $id_game;?>">
         <label for="review">Review:</label>

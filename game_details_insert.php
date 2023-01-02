@@ -16,21 +16,26 @@ $row = $result->fetch_assoc();
 
 $userid = $row['id'];
 
-$db_name = $username.'_db';
-
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $game_id = $_REQUEST['game-id'] ?? '';
     $progress = $_REQUEST['progress'] ?? '';
     $score = $_REQUEST['score'] ?? '';
     $review = $_REQUEST['review'] ?? '';
 
-    game_review($db, $userid, $game_id, $progress, $score, $review, $db_name);
+    if (empty($review)) {
+        $review = "N/A";
+    }
+    if (empty($score)) {
+        $score = 0;
+    }
+
+    game_review($db, $userid, $game_id, $progress, $score, $review);
 }
 
 
-function game_review($db, $uid, $gid, $progress, $score, $review, $userdb){
-    $sql_add_review = "INSERT INTO `$userdb` (`id`, `user_id`, `game_id`, `progress`, `score`, `review`) 
-    VALUES (NULL, $uid, $gid, '$progress', $score, '$review') ON DUPLICATE KEY UPDATE review = '$review', score = $score";
+function game_review($db, $uid, $gid, $progress, $score, $review){
+    $sql_add_review = "INSERT INTO user_games (`id`, `user_id`, `game_id`, `progress`, `score`, `review`) 
+    VALUES (NULL, $uid, $gid, '$progress', $score, '$review') ON DUPLICATE KEY UPDATE review = '$review', score = $score, progress = '$progress';";
 
     try{
         $result = mysqli_query($db, $sql_add_review);
