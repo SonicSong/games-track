@@ -78,6 +78,10 @@ if (!$db) {
         <?php
     }
 
+    function draw_add_publisher(){
+
+    }
+
     $db->close();
     ?>
 </div>

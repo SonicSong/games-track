@@ -4,13 +4,6 @@ if (!$db) {
     die('Nie można było się połączyć z bazą danych: ' . mysqli_error());
 }
 
-$genres = ['Air combat simulation','Action-adventure', 'Action', 'Massively multiplayer online role-playing', 'Real-time strategy', 'First-person shooter', 'Massively multiplayer online',
-    'Factory simulation', 'Space trading and combat', 'Action role-playing', 'Roguelike', 'Third-person shooter', 'Simulation', 'Tactical role-playing', 'Tower defense',
-    'Survival horror', 'Top-down shooter', ' Puzzle', 'Music', 'Open World', 'Party', 'Metroidvania'];
-
-$platforms = ['PC', 'Play Station', 'Play Station 2', 'Play Station 3', 'Play Station 4', 'Play Station 4', 'Play Station 5', 'Xbox', 'Xbox 360','Xbox One', 'Xbox Series X/S',
-    'PC/Xbox One/Play Station 4', 'PC/Xbox Series/Play Station 5', 'PC/Xbox 360/Play Station 3'];
-
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_REQUEST['title'] ?? '';
     $release_date = $_REQUEST['release_date'] ?? '';
@@ -20,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     add_game($db, $title, $release_date, $genre, $publisher, $platform);
 }
+
 
 function add_game($db, $title, $release_date, $genre, $publisher, $platform){
     $sql_add_game = "INSERT INTO `games` (`id`, `title`, `publisher`, `release_date`, `genre`, `platform`, `date_added`) 
