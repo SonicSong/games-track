@@ -72,7 +72,7 @@ if (!$db) {
                     <option value="<?php echo $platform; ?>"><?php echo $platform; ?></option>
                 <?php } ?>
             </select><br>
-            <input type="submit">
+            <input type="submit" value="Dodaj grę">
         </form>
         </div>
         <?php

@@ -40,9 +40,26 @@ if(!isset($_COOKIE['user'])) {
         echo "<a href='user_panel.php'>$username</a>";
         echo "<a href='logout.php'>Wyloguj</a>";
     }
+    ?>
+    <div>
+    <form action="index.php" method="POST">
+        <input type="text" placeholder="Tytuł gry" name="game-query">
+        <input type="submit" value="Wyszukaj">
+    </form>
+    </div>
+    <?php
     echo "</div>";
     echo "<div class='game-disp'>";
-    $games_query = "SELECT * FROM games";
+    if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(!empty($_REQUEST['game-query'])){
+            $spec_game = $_REQUEST['game-query'];
+            $games_query = "SELECT * FROM games WHERE title LIKE '%$spec_game%'";
+        } else {
+            $games_query = "SELECT * FROM games";
+        }
+    } else {
+        $games_query = "SELECT * FROM games";
+    }
     $games_list = $db->query($games_query);
 
     if($games_list->num_rows > 0) {

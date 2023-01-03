@@ -15,7 +15,7 @@
     <form action="auth_login.php" method="post">
         Nazwa użytkownika: <input type="text" name="login" required><br>
         Hasło: <input type="password" name="userpwd" required><br>
-        <input type="submit">
+        <input type="submit" value="Zaloguj">
     </form>
     <a href="registration_page.php">Rejestracja</a>
 </div>
