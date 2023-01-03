@@ -31,9 +31,12 @@ if (!$db) {
 
     echo "<div class='topnav'>";
     echo "<a href='index.php'>Games Track</a>";
-    ?>
-    <a href="<?php echo htmlspecialchars($_SERVER['HTTP_REFERER']);?>">Powrót</a>
-    <?php
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        $referer = $_SERVER['HTTP_REFERER'];
+    } else {
+        $referer = 'index.php';
+    }
+    echo '<a href="'.htmlspecialchars($referer).'">Powrót</a>';
     if ($row) {
         echo "<div><p>Witaj, $cookie_name</p></div>";
         echo "<a href='logout.php'>Wyloguj</a>";

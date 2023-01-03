@@ -37,9 +37,12 @@ $user_games = $db->query($sql_games);
 
 echo "<div class='topnav'>";
 echo "<a href='index.php'>Games Track</a>";
-?>
-<a href="<?php echo htmlspecialchars($_SERVER['HTTP_REFERER']);?>">Powrót</a>
-<?php
+if (isset($_SERVER['HTTP_REFERER'])) {
+    $referer = $_SERVER['HTTP_REFERER'];
+} else {
+    $referer = 'index.php';
+}
+echo '<a href="'.htmlspecialchars($referer).'">Powrót</a>';
 echo "<p>Witaj, $username</p>";
 if(!isset($_COOKIE['user'])){
     echo "<a href='login_page.php'>Logowanie</a>";
