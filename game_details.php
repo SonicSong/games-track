@@ -15,7 +15,7 @@ $sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$username'";
 $result = $db->query($sql);
 $row = $result->fetch_assoc();
 
-$sql_query = "SELECT * FROM games WHERE id = $game_id";
+$sql_query = "SELECT * FROM games JOIN publishers WHERE games.id = $game_id";
 $game_db = $db->query($sql_query);
 $game_detail = $game_db->fetch_assoc();
 ?>
