@@ -32,7 +32,8 @@ $sql_user = "SELECT * FROM users WHERE username = '$username'";
 $res_user = $db->query($sql_user);
 $user_dat = $res_user->fetch_assoc();
 
-$sql_games = "SELECT ug.game_id, g.title, ug.progress, ug.score, ug.review FROM user_games ug JOIN games g ON ug.game_id = g.id WHERE ug.user_id = '{$user_dat['id']}'";
+$sql_games = "SELECT ug.game_id, g.title, ug.progress, ug.score, ug.review 
+FROM user_games ug JOIN games g ON ug.game_id = g.id WHERE ug.user_id = '{$user_dat['id']}'";
 $user_games = $db->query($sql_games);
 
 echo "<div class='topnav'>";

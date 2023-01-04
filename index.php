@@ -53,12 +53,31 @@ if(!isset($_COOKIE['user'])) {
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         if(!empty($_REQUEST['game-query'])){
             $spec_game = $_REQUEST['game-query'];
-            $games_query = "SELECT * FROM games WHERE title LIKE '%$spec_game%'";
+            $games_query = "SELECT gam.title, gam.release_date, gam.id, gam.genres_id, gam.publishers_id, gam.platforms_id, gam.date_added,
+            gen.genres AS genre_name, pub.publisher AS publisher_name, plat.platforms AS platform_name
+            FROM games gam 
+            JOIN publishers pub ON gam.publishers_id = pub.id
+            JOIN genres gen ON gam.genres_id = gen.id
+            JOIN platforms plat ON gam.platforms_id = plat.id
+            ORDER BY gam.id
+            WHERE gam.title LIKE '%$spec_game%';";
         } else {
-            $games_query = "SELECT * FROM games";
+            $games_query = "SELECT gam.title, gam.release_date, gam.id, gam.genres_id, gam.publishers_id, gam.platforms_id, gam.date_added,
+            gen.genres AS genre_name, pub.publisher AS publisher_name, plat.platforms AS platform_name
+            FROM games gam 
+            JOIN publishers pub ON gam.publishers_id = pub.id
+            JOIN genres gen ON gam.genres_id = gen.id
+            JOIN platforms plat ON gam.platforms_id = plat.id
+            ORDER BY gam.id;";
         }
     } else {
-        $games_query = "SELECT * FROM games";
+        $games_query = "SELECT gam.title, gam.release_date, gam.id, gam.genres_id, gam.publishers_id, gam.platforms_id, gam.date_added,
+        gen.genres AS genre_name, pub.publisher AS publisher_name, plat.platforms AS platform_name
+        FROM games gam 
+        JOIN publishers pub ON gam.publishers_id = pub.id
+        JOIN genres gen ON gam.genres_id = gen.id
+        JOIN platforms plat ON gam.platforms_id = plat.id
+        ORDER BY gam.id;";
     }
     $games_list = $db->query($games_query);
 
@@ -67,9 +86,9 @@ if(!isset($_COOKIE['user'])) {
             echo '<div class="game-data"><a href="game_details.php?id='.$games_data['id'].'">';
             echo 'Tytuł: '.$games_data['title'].'<br>';
             echo 'Data Premiery: '.$games_data['release_date'].'<br>';
-            echo 'Gatunek: '.$games_data['genre'].'<br>';
-            echo 'Wydawca: '.$games_data['publisher'].'<br>';
-            echo 'Platforma: '.$games_data['platform'].'<br>';
+            echo 'Gatunek: '.$games_data['genre_name'].'<br>';
+            echo 'Wydawca: '.$games_data['publisher_name'].'<br>';
+            echo 'Platforma: '.$games_data['platform_name'].'<br>';
             echo "</a>";
             echo "Dodano ".$games_data['date_added']."</div>";
         }

@@ -15,7 +15,13 @@ $sql = "SELECT * FROM users WHERE is_admin = 1 AND username = '$username'";
 $result = $db->query($sql);
 $row = $result->fetch_assoc();
 
-$sql_query = "SELECT * FROM games JOIN publishers WHERE games.id = $game_id";
+$sql_query = "SELECT gam.title, gam.release_date, gam.id, gam.genres_id, gam.publishers_id, gam.platforms_id, gam.date_added,
+            gen.genres AS genre_name, pub.publisher AS publisher_name, plat.platforms AS platform_name
+            FROM games gam 
+            JOIN publishers pub ON gam.publishers_id = pub.id
+            JOIN genres gen ON gam.genres_id = gen.id
+            JOIN platforms plat ON gam.platforms_id = plat.id 
+            WHERE gam.id = $game_id";
 $game_db = $db->query($sql_query);
 $game_detail = $game_db->fetch_assoc();
 ?>
@@ -55,9 +61,9 @@ echo '</div>';
 echo "<div class='game-detail'>";
 echo 'Tytuł: '.$game_detail['title']. '<br>';
 echo 'Data Premiery: '.$game_detail['release_date'].'<br>';
-echo 'Gatunek: '.$game_detail['genre'].'<br>';
-echo 'Wydawca: '.$game_detail['publisher'].'<br>';
-echo 'Platforma: '.$game_detail['platform'].'<br>';
+echo 'Gatunek: '.$game_detail['genre_name'].'<br>';
+echo 'Wydawca: '.$game_detail['publisher_name'].'<br>';
+echo 'Platforma: '.$game_detail['platform_name'].'<br>';
 echo 'Data dodania: '.$game_detail['date_added'];
 echo '</div>';
 

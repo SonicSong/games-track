@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 03 Sty 2023, 22:13
--- Wersja serwera: 10.4.27-MariaDB
--- Wersja PHP: 8.1.12
+-- Host: localhost
+-- Generation Time: Jan 04, 2023 at 09:47 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `games_track`
+-- Database: `games_track`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `games`
+-- Table structure for table `games`
 --
 
 CREATE TABLE `games` (
@@ -35,10 +35,10 @@ CREATE TABLE `games` (
   `genres_id` int(11) DEFAULT NULL,
   `publishers_id` int(11) DEFAULT NULL,
   `platforms_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `games`
+-- Dumping data for table `games`
 --
 
 INSERT INTO `games` (`id`, `title`, `release_date`, `date_added`, `genres_id`, `publishers_id`, `platforms_id`) VALUES
@@ -57,21 +57,22 @@ INSERT INTO `games` (`id`, `title`, `release_date`, `date_added`, `genres_id`, `
 (13, 'Project Wingman', '2020-12-01', '2022-12-26', 1, 8, 1),
 (14, 'Stardew Valley', '2016-02-26', '2022-12-26', 13, 9, 1),
 (15, 'Fallout: New Vegas', '2010-10-19', '2022-12-26', 10, 10, 14),
-(16, 'Fallout 3', '2008-12-31', '2022-12-30', 10, 10, 14);
+(16, 'Fallout 3', '2008-12-31', '2022-12-30', 10, 10, 14),
+(17, 'Code Vein', '2019-09-27', '2023-01-04', 10, 4, 12);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `genres`
+-- Table structure for table `genres`
 --
 
 CREATE TABLE `genres` (
   `id` int(11) NOT NULL,
   `genres` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `genres`
+-- Dumping data for table `genres`
 --
 
 INSERT INTO `genres` (`id`, `genres`) VALUES
@@ -101,16 +102,16 @@ INSERT INTO `genres` (`id`, `genres`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `platforms`
+-- Table structure for table `platforms`
 --
 
 CREATE TABLE `platforms` (
   `id` int(11) NOT NULL,
   `platforms` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `platforms`
+-- Dumping data for table `platforms`
 --
 
 INSERT INTO `platforms` (`id`, `platforms`) VALUES
@@ -132,16 +133,16 @@ INSERT INTO `platforms` (`id`, `platforms`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `publishers`
+-- Table structure for table `publishers`
 --
 
 CREATE TABLE `publishers` (
   `id` int(11) NOT NULL,
   `publisher` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `publishers`
+-- Dumping data for table `publishers`
 --
 
 INSERT INTO `publishers` (`id`, `publisher`) VALUES
@@ -159,7 +160,7 @@ INSERT INTO `publishers` (`id`, `publisher`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -169,10 +170,10 @@ CREATE TABLE `users` (
   `email` varchar(75) NOT NULL,
   `creation_date` datetime NOT NULL,
   `is_admin` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `creation_date`, `is_admin`) VALUES
@@ -182,7 +183,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `creation_date`, `is
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `user_games`
+-- Table structure for table `user_games`
 --
 
 CREATE TABLE `user_games` (
@@ -192,10 +193,10 @@ CREATE TABLE `user_games` (
   `progress` enum('Plan to play','Playing','Completed','Replaying','Paused','Dropped') DEFAULT NULL,
   `score` int(11) NOT NULL CHECK (`score` >= 0 and `score` <= 10),
   `review` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `user_games`
+-- Dumping data for table `user_games`
 --
 
 INSERT INTO `user_games` (`id`, `user_id`, `game_id`, `progress`, `score`, `review`) VALUES
@@ -204,11 +205,11 @@ INSERT INTO `user_games` (`id`, `user_id`, `game_id`, `progress`, `score`, `revi
 (4, 21, 6, 'Completed', 10, 'N/A');
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
--- Indeksy dla tabeli `games`
+-- Indexes for table `games`
 --
 ALTER TABLE `games`
   ADD PRIMARY KEY (`id`),
@@ -218,25 +219,25 @@ ALTER TABLE `games`
   ADD KEY `games_ibfk_3` (`platforms_id`);
 
 --
--- Indeksy dla tabeli `genres`
+-- Indexes for table `genres`
 --
 ALTER TABLE `genres`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `platforms`
+-- Indexes for table `platforms`
 --
 ALTER TABLE `platforms`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `publishers`
+-- Indexes for table `publishers`
 --
 ALTER TABLE `publishers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -244,7 +245,7 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indeksy dla tabeli `user_games`
+-- Indexes for table `user_games`
 --
 ALTER TABLE `user_games`
   ADD PRIMARY KEY (`id`),
@@ -252,51 +253,51 @@ ALTER TABLE `user_games`
   ADD KEY `game_id` (`game_id`);
 
 --
--- AUTO_INCREMENT dla zrzuconych tabel
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT dla tabeli `games`
+-- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT dla tabeli `genres`
+-- AUTO_INCREMENT for table `genres`
 --
 ALTER TABLE `genres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT dla tabeli `platforms`
+-- AUTO_INCREMENT for table `platforms`
 --
 ALTER TABLE `platforms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT dla tabeli `publishers`
+-- AUTO_INCREMENT for table `publishers`
 --
 ALTER TABLE `publishers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT dla tabeli `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT dla tabeli `user_games`
+-- AUTO_INCREMENT for table `user_games`
 --
 ALTER TABLE `user_games`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Ograniczenia dla zrzutów tabel
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `games`
+-- Constraints for table `games`
 --
 ALTER TABLE `games`
   ADD CONSTRAINT `games_ibfk_1` FOREIGN KEY (`genres_id`) REFERENCES `genres` (`id`),
@@ -304,7 +305,7 @@ ALTER TABLE `games`
   ADD CONSTRAINT `games_ibfk_3` FOREIGN KEY (`platforms_id`) REFERENCES `platforms` (`id`);
 
 --
--- Ograniczenia dla tabeli `user_games`
+-- Constraints for table `user_games`
 --
 ALTER TABLE `user_games`
   ADD CONSTRAINT `user_games_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),

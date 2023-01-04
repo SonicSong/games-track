@@ -14,10 +14,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     add_game($db, $title, $release_date, $genre, $publisher, $platform);
 }
 
-
 function add_game($db, $title, $release_date, $genre, $publisher, $platform){
-    $sql_add_game = "INSERT INTO `games` (`id`, `title`, `publisher`, `release_date`, `genre`, `platform`, `date_added`) 
-VALUES (NULL, '$title', '$publisher', '$release_date', '$genre', '$platform', current_timestamp())";
+    $sql_add_game = "INSERT INTO games (id, title, release_date, genres_id, publishers_id, platforms_id, date_added)
+VALUES (NULL, '$title', '$release_date', $genre, $publisher, $platform, current_timestamp())";
 
     try{
     $result = mysqli_query($db, $sql_add_game);
@@ -41,6 +40,18 @@ VALUES (NULL, '$title', '$publisher', '$release_date', '$genre', '$platform', cu
             return $error;
         }
     }
+}
+
+function add_publisher(){
+
+}
+
+function add_genre(){
+
+}
+
+function add_platform(){
+
 }
 
 $db->close();

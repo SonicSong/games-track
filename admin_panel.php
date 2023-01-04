@@ -29,6 +29,15 @@ if (!$db) {
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
 
+    //HAHA SQL QUERY GOES BRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+    $geres_sql = "SELECT * FROM genres";
+    $platforms_sql = "SELECT * FROM platforms";
+    $publishers_sql = "SELECT * FROM publishers";
+
+    $gen_result = $db->query($geres_sql);
+    $plat_result = $db->query($platforms_sql);
+    $pub_result = $db->query($publishers_sql);
+
     echo "<div class='topnav'>";
     echo "<a href='index.php'>Games Track</a>";
     if (isset($_SERVER['HTTP_REFERER'])) {
@@ -41,7 +50,7 @@ if (!$db) {
         echo "<div><p>Witaj, $cookie_name</p></div>";
         echo "<a href='logout.php'>Wyloguj</a>";
         echo "</div>";
-        draw_add_game($genres, $platforms);
+        draw_add_game($gen_result, $plat_result, $pub_result);
     } else {
         echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.</p>";
         ?>
@@ -54,22 +63,25 @@ if (!$db) {
     }
     echo "</div>";
 
-    function draw_add_game($genres, $platforms){
+    function draw_add_game($genres, $platforms, $publishers){
         ?>
         <div class="function-title"><p>Dodaj nową grę</p></div>
         <form action="admin_functions.php" method="POST">
             Tytuł: <input type="text" name="title" required><br>
             Data premiery: <input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
             Gatunek: <select name="genre" required>
-                <!-- $genres actually does work but IDE doesn't recognize that it's in another file -->
-                <?php foreach ($genres as $genre) { ?>
-                    <option value="<?php echo $genre; ?>"><?php echo $genre; ?></option>
+                <?php while($genre = $genres->fetch_assoc()) { ?>
+                    <option value="<?php echo $genre['id']; ?>"><?php echo $genre['genres']; ?></option>
                 <?php } ?>
             </select><br>
-            Wydawca: <input type="text" name="publisher"><br>
+            Wydawca: <select name="publisher">
+                <?php while($publisher = $publishers->fetch_assoc()) { ?>
+                    <option value="<?php echo $publisher['id']; ?>"><?php echo $publisher['publisher']; ?></option>
+                <?php } ?>
+            </select><br>
             Platforma: <select name="platform">
-                <?php foreach ($platforms as $platform) { ?>
-                    <option value="<?php echo $platform; ?>"><?php echo $platform; ?></option>
+                <?php while($platform = $platforms->fetch_assoc()) { ?>
+                    <option value="<?php echo $platform['id']; ?>"><?php echo $platform['platforms']; ?></option>
                 <?php } ?>
             </select><br>
             <input type="submit" value="Dodaj grę">
