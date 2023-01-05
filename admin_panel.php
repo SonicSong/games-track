@@ -1,6 +1,4 @@
 <?php
-require 'admin_functions.php';
-
 $db = mysqli_connect("localhost", "root", "", "games_track");
 if (!$db) {
     die('Nie można było się połączyć z bazą danych: ' . mysqli_error());
@@ -49,8 +47,12 @@ if (!$db) {
     if ($row) {
         echo "<div><p>Witaj, $cookie_name</p></div>";
         echo "<a href='logout.php'>Wyloguj</a>";
-        echo "</div>";
+        echo "</div><div class='functions'>";
         draw_add_game($gen_result, $plat_result, $pub_result);
+        draw_add_publisher();
+        draw_add_platform();
+        draw_add_genre();
+        echo "</div>";
     } else {
         echo "<p>Nie jesteś uprawniony by przeglądać tą zawartość.</p>";
         ?>
@@ -65,8 +67,9 @@ if (!$db) {
 
     function draw_add_game($genres, $platforms, $publishers){
         ?>
+        <div class="function">
         <div class="function-title"><p>Dodaj nową grę</p></div>
-        <form action="admin_functions.php" method="POST">
+        <form action="admin_functions.php" method="POST" name="game_add">
             Tytuł: <input type="text" name="title" required><br>
             Data premiery: <input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
             Gatunek: <select name="genre" required>
@@ -91,7 +94,39 @@ if (!$db) {
     }
 
     function draw_add_publisher(){
+        ?>
+        <div class="function">
+        <div class="function-title"><p>Dodaj nowego wydawcę</p></div>
+        <form action="admin_functions.php" method="POST" name="pub_add">
+            Wydawca: <input type="text" name="new_pub" required><br>
+            <input type="submit" value="Dodaj wydawcę">
+        </form>
+        </div>
+        <?php
+    }
 
+    function draw_add_platform(){
+        ?>
+        <div class="function">
+            <div class="function-title"><p>Dodaj nową platformę</p></div>
+            <form action="admin_functions.php" method="POST" name="plat_add">
+                Platforma: <input type="text" name="new_plat" required><br>
+                <input type="submit" value="Dodaj platformę">
+            </form>
+        </div>
+        <?php
+    }
+
+    function draw_add_genre(){
+        ?>
+        <div>
+            <div class="function-title"><p>Dodaj nowy gatunek</p></div>
+            <form action="admin_functions.php" method="POST" name="gen_add">
+                Platforma: <input type="text" name="new_gen" required><br>
+                <input type="submit" value="Dodaj gatunek">
+            </form>
+        </div>
+        <?php
     }
 
     $db->close();

@@ -59,8 +59,8 @@ if(!isset($_COOKIE['user'])) {
             JOIN publishers pub ON gam.publishers_id = pub.id
             JOIN genres gen ON gam.genres_id = gen.id
             JOIN platforms plat ON gam.platforms_id = plat.id
-            ORDER BY gam.id
-            WHERE gam.title LIKE '%$spec_game%';";
+			WHERE gam.title LIKE '%$spec_game%'
+            ORDER BY gam.id;";
         } else {
             $games_query = "SELECT gam.title, gam.release_date, gam.id, gam.genres_id, gam.publishers_id, gam.platforms_id, gam.date_added,
             gen.genres AS genre_name, pub.publisher AS publisher_name, plat.platforms AS platform_name
@@ -90,7 +90,11 @@ if(!isset($_COOKIE['user'])) {
             echo 'Wydawca: '.$games_data['publisher_name'].'<br>';
             echo 'Platforma: '.$games_data['platform_name'].'<br>';
             echo "</a>";
-            echo "Dodano ".$games_data['date_added']."</div>";
+            echo "Dodano ".$games_data['date_added'];
+            if($row){
+                echo '<br><a href="game_edit.php?id='.$games_data['id'].'">Edytuj</a>';
+            }
+            echo "</div>";
         }
     } else {
         echo "<p>0 wyników</p>";
