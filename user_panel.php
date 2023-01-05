@@ -56,16 +56,19 @@ if(!isset($_COOKIE['user'])){
     echo "<a href='user_panel.php'>$username</a>";
     echo "<a href='logout.php'>Wyloguj</a>";
     echo "</div>";
-    user_games($user_games);
+    user_games($user_games, $row);
 }
 
-function user_games($ug){
+function user_games($ug, $row){
     if($ug->num_rows > 0) {
         while ($user_game_list = $ug->fetch_assoc()) {
             echo "<div class='game-data'><a href='game_details.php?id=".$user_game_list['game_id']."'>".$user_game_list['title']."</a>";
             echo "<p>Status: ".$user_game_list['progress']."</p>";
             echo "<p>Wynik: ".$user_game_list['score']."</p>";
-            echo "<p>Recenzja: ".$user_game_list['review']."</p></div>";
+            echo "<p>Recenzja: ".$user_game_list['review']."</p>";
+            if($row){
+                echo '<a href="game_edit.php?id='.$user_game_list['game_id'].'">Edytuj</a></div>';
+            }
         }
     } else {
         echo "<p>Nie masz jeszcze dodanych żadnych gier.</p>";

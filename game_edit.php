@@ -56,7 +56,8 @@ $game_id = intval($_GET['id']);
     echo '<a href="'.htmlspecialchars($referer).'">Powrót</a>';
     if ($row) {
         echo "<div class='old-game'></div><div><p>Witaj, $cookie_name</p></div>";
-        echo "<a href='logout.php'>Wyloguj</a>";
+        echo "<a href='admin_panel.php'>Panel Administratora</a>";
+                echo "<a href='logout.php'>Wyloguj</a>";
         echo "</div><div class='functions'>";
         echo "<div class='game-detail'>";
         echo "<p>Stare Dane</p>";
@@ -95,12 +96,12 @@ $game_id = intval($_GET['id']);
             </select><br>
             Wydawca: <select name="publisher">
                 <?php while($publisher = $publishers->fetch_assoc()) { ?>
-                    <option value="<?php echo $publisher['id']; ?>"><?php echo $publisher['publisher']; ?></option>
+                    <option value="<?php echo $publisher['id'].'"'; if($publisher['publisher'] == $old_game['publisher_name']) echo " selected "; ?>"><?php echo $publisher['publisher']; ?></option>
                 <?php } ?>
             </select><br>
             Platforma: <select name="platform">
                 <?php while($platform = $platforms->fetch_assoc()) { ?>
-                    <option value="<?php echo $platform['id']; ?>"><?php echo $platform['platforms']; ?></option>
+                    <option value="<?php echo $platform['id'].'"'; if($platform['platforms'] == $old_game['platform_name']) echo " selected " ?>"><?php echo $platform['platforms']; ?></option>
                 <?php } ?>
             </select><br>
             <input type="hidden" name="game-id" value="<?php echo $old_game['id'];?>">
