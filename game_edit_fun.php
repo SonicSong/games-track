@@ -13,3 +13,4 @@ if(!isset($_COOKIE['user'])) {
 $sql_user = "SELECT * FROM users WHERE username = '$username'";
 $result = $db->query($sql_user);
 $row = $result->fetch_assoc();
+
