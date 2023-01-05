@@ -26,7 +26,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         add_genre($db, $new_gen);
     }
-
 }
 
 function add_game($db, $title, $release_date, $genre, $publisher, $platform){
