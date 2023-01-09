@@ -101,7 +101,7 @@ $game_id = intval($_GET['id']);
             </select><br>
             Platforma: <select name="platform">
                 <?php while($platform = $platforms->fetch_assoc()) { ?>
-                    <option value="<?php echo $platform['id'].'"'; if($platform['platforms'] == $old_game['platform_name']) echo " selected " ?>"><?php echo $platform['platforms']; ?></option>
+                    <option value="<?php echo $platform['id'].'"'; if($platform['platforms'] == $old_game['platform_name']) echo " selected "; ?>"><?php echo $platform['platforms']; ?></option>
                 <?php } ?>
             </select><br>
             <input type="hidden" name="game-id" value="<?php echo $old_game['id'];?>">
