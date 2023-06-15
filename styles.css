@@ -15,18 +15,112 @@ body {
 .game-disp {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    background-color: #363b49;
+    min-height: 100vh;
+}
+
+.game_info {
+    min-height: 100vh;
+    background-color: #363b49;
 }
 
 .game-data {
     padding: 1em;
+    color: white;
+}
+
+.games-data {
+    padding: 1em;
+    color: white;
+    background-color: #363b49;
+}
+
+.game-detail {
+    display: flex;
+    color: white;
+}
+
+.game_insert {
+    color: white;
+}
+
+.game_insert input[type=submit] {
+    background-color: #292d38;
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+.functions {
+    min-height: 100vh;
+    background-color: #363b49;
+}
+
+.function {
+    padding: 5px;
+    display: flex;
+}
+
+.function p, form {
+    padding: 10px;
+}
+
+.function input[type=submit] {
+    background-color: #292d38;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.function span {
+    color: white;
 }
 
 .topnav {
+    overflow: hidden;
     display: flex;
+    background-color: #292d38;
     padding: 1em;
 }
 
-.topnav a, p {
+.topnav input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+.topnav input[type=submit] {
+    background-color: #292d38;
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.topnav a, p{
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
     padding-left: 0.5em;
     padding-right: 0.5em;
+}
+a, a:visited {
+    color: #fefefe;
 }

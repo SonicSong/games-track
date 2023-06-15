@@ -87,19 +87,19 @@ $game_id = intval($_GET['id']);
     <div class="function">
         <div class="function-title"><p>Nowe Dane</p></div>
         <form action="game_edit_fun.php" method="POST" name="game_add">
-            Tytuł: <input type="text" name="title" value="<?php echo $old_game['title']; ?>" required><br>
-            Data premiery: <input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value="<?php echo $old_game['release_date'] ?>"><br>
-            Gatunek: <select name="genre" required>
+            <span>Tytuł: </span><input type="text" name="title" value="<?php echo $old_game['title']; ?>" required><br>
+            <span>Data premiery: </span><input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value="<?php echo $old_game['release_date'] ?>"><br>
+            <span>Gatunek: </span><select name="genre" required>
                 <?php while($genre = $genres->fetch_assoc()) { ?>
                     <option value="<?php echo $genre['id'].'"'; if($genre['genres'] == $old_game['genre_name']) echo " selected "; ?> ><?php echo $genre['genres']; ?></option>
                 <?php } ?>
             </select><br>
-            Wydawca: <select name="publisher">
+            <span>Wydawca: </span><select name="publisher">
                 <?php while($publisher = $publishers->fetch_assoc()) { ?>
                     <option value="<?php echo $publisher['id'].'"'; if($publisher['publisher'] == $old_game['publisher_name']) echo " selected "; ?>"><?php echo $publisher['publisher']; ?></option>
                 <?php } ?>
             </select><br>
-            Platforma: <select name="platform">
+            <span>Platforma: </span><select name="platform">
                 <?php while($platform = $platforms->fetch_assoc()) { ?>
                     <option value="<?php echo $platform['id'].'"'; if($platform['platforms'] == $old_game['platform_name']) echo " selected "; ?>"><?php echo $platform['platforms']; ?></option>
                 <?php } ?>

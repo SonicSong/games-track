@@ -62,7 +62,7 @@ if(!isset($_COOKIE['user'])){
 function user_games($ug, $row){
     if($ug->num_rows > 0) {
         while ($user_game_list = $ug->fetch_assoc()) {
-            echo "<div class='game-data'><a href='game_details.php?id=".$user_game_list['game_id']."'>".$user_game_list['title']."</a>";
+            echo "<div class='games-data'><a href='game_details.php?id=".$user_game_list['game_id']."'>".$user_game_list['title']."</a>";
             echo "<p>Status: ".$user_game_list['progress']."</p>";
             echo "<p>Wynik: ".$user_game_list['score']."</p>";
             echo "<p>Recenzja: ".$user_game_list['review']."</p>";

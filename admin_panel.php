@@ -70,19 +70,19 @@ if (!$db) {
         <div class="function">
         <div class="function-title"><p>Dodaj nową grę</p></div>
         <form action="admin_functions.php" method="POST" name="game_add">
-            Tytuł: <input type="text" name="title" required><br>
-            Data premiery: <input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
-            Gatunek: <select name="genre" required>
+            <span>Tytuł: </span><input type="text" name="title" required><br>
+            <span>Data premiery: </span><input type="date" name="release_date" placeholder="YYYY-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
+            <span>Gatunek: </span><select name="genre" required>
                 <?php while($genre = $genres->fetch_assoc()) { ?>
                     <option value="<?php echo $genre['id']; ?>"><?php echo $genre['genres']; ?></option>
                 <?php } ?>
             </select><br>
-            Wydawca: <select name="publisher">
+            <span>Wydawca: </span><select name="publisher">
                 <?php while($publisher = $publishers->fetch_assoc()) { ?>
                     <option value="<?php echo $publisher['id']; ?>"><?php echo $publisher['publisher']; ?></option>
                 <?php } ?>
             </select><br>
-            Platforma: <select name="platform">
+            <span>Platforma: </span><select name="platform">
                 <?php while($platform = $platforms->fetch_assoc()) { ?>
                     <option value="<?php echo $platform['id']; ?>"><?php echo $platform['platforms']; ?></option>
                 <?php } ?>
@@ -98,7 +98,7 @@ if (!$db) {
         <div class="function">
         <div class="function-title"><p>Dodaj nowego wydawcę</p></div>
         <form action="admin_functions.php" method="POST" name="pub_add">
-            Wydawca: <input type="text" name="new_pub" required><br>
+            <span>Wydawca: </span><input type="text" name="new_pub" required><br>
             <input type="submit" value="Dodaj wydawcę">
         </form>
         </div>
@@ -110,7 +110,7 @@ if (!$db) {
         <div class="function">
             <div class="function-title"><p>Dodaj nową platformę</p></div>
             <form action="admin_functions.php" method="POST" name="plat_add">
-                Platforma: <input type="text" name="new_plat" required><br>
+                <span>Platforma: </span><input type="text" name="new_plat" required><br>
                 <input type="submit" value="Dodaj platformę">
             </form>
         </div>
@@ -119,10 +119,10 @@ if (!$db) {
 
     function draw_add_genre(){
         ?>
-        <div>
+        <div class="function">
             <div class="function-title"><p>Dodaj nowy gatunek</p></div>
             <form action="admin_functions.php" method="POST" name="gen_add">
-                Platforma: <input type="text" name="new_gen" required><br>
+                <span>Platforma: </span><input type="text" name="new_gen" required><br>
                 <input type="submit" value="Dodaj gatunek">
             </form>
         </div>

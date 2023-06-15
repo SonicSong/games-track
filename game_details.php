@@ -57,7 +57,7 @@ if(!isset($_COOKIE['user'])){
     echo "<a href='logout.php'>Wyloguj</a>";
 }
 echo '</div>';
-
+echo "<div class='game_info'>";
 echo "<div class='game-detail'>";
 echo 'Tytuł: '.$game_detail['title']. '<br>';
 echo 'Data Premiery: '.$game_detail['release_date'].'<br>';
@@ -75,9 +75,9 @@ echo '</div>';
 
 function insert_game($id_game){
     ?>
-    <br>
+    <div class="game_insert">
     <form method="POST" action="game_details_insert.php">
-        <label for="progress">Progress:</label>
+        <label for="progress"><span>Progress:</span></label>
         <select name="progress" id="progress" required>
             <option value="Plan to play">Plan to play</option>
             <option value="Playing">Playing</option>
@@ -87,15 +87,16 @@ function insert_game($id_game){
             <option value="Dropped">Dropped</option>
         </select>
         <br>
-        <label for="score">Score:</label>
+        <label for="score"><span>Score:</span></label>
         <input type="number" name="score" id="score" min="0" max="10">
         <br>
         <input type="hidden" name="game-id" value="<?php echo $id_game;?>">
-        <label for="review">Review:</label>
+        <label for="review"><span>Review:</span></label>
         <textarea name="review" id="review" maxlength="500"></textarea>
         <br>
         <input type="submit" value="Submit">
     </form>
+    </div>
     <?php
 }
 
